@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_12/widgets/card.dart'; // أساس الكود
+//  ربط صفحة اخري داخل المشروع
+import 'package:flutter_application_12/widgets/card.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,6 +27,7 @@ class Quotes extends StatefulWidget {
   State<Quotes> createState() => _QuotesState();
 }
 
+//   عمل متغير للالاضافة بداخل الليست
 class BestQuotes {
   String title;
   String author;
@@ -34,36 +36,30 @@ class BestQuotes {
 }
 
 class _QuotesState extends State<Quotes> {
-  List AllQuotes = [
+  //  لسته لوضع المتغيرات داخلها
+  List allQuotes = [
     BestQuotes(author: "Ali Hassan", title: "رايق من نوعة فاخر 🔥"),
     BestQuotes(author: "Ali 7assan", title: " العقل السليم في البعد عن 😂"),
-    BestQuotes(
-        author: "Ali Elrayek",
-        title: "كُتر التفكير فى الى ضااااع هيعمل لك فى دماغك صادااااع  😉 "),
-    BestQuotes(
-        author: "ELRAYEK",
-        title: "فرح نفسك بنفسك ومتستناش حاجة حلوة من حد  ✋ "),
-    BestQuotes(
-        author: "ELRAYEK",
-        title: "فرح نفسك بنفسك ومتستناش حاجة حلوة من حد  ✋ "),
   ];
 
+  //  فونكشون لمسح الايتيم وجعل الكلاس يساوي متغير اخر
   delete(BestQuotes iiii) {
-    //  فونكشون لعمل مسح للعنصر نعرق مدخل ونعطية قيمة الكلاس الخاص الليست
     setState(() {
-      //  لعمل هوت ريفريش بعد تنفيذ الفونكشون
-      AllQuotes.remove(iiii);
+      //  لعمل مسح للايتيم
+      allQuotes.remove(iiii);
     });
   }
 
+//  لعمل اضافة داخل الليست
   add() {
     setState(() {
-      AllQuotes.add(
-        BestQuotes(author:mycontrollerhhh2.text ,title: mycontrollerhhh.text),
+      allQuotes.add(
+        BestQuotes(author: mycontrollerhhh2.text, title: mycontrollerhhh.text),
       );
     });
   }
 
+//   تعريف متغيرات مربوطه بمربع ادخال
   final mycontrollerhhh = TextEditingController();
   final mycontrollerhhh2 = TextEditingController();
   @override
@@ -80,15 +76,20 @@ class _QuotesState extends State<Quotes> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          //    لعمل صفحة تفتح للمنتصف عند الضغط علي الزر العائم
           showModalBottomSheet(
+            
             context: context,
             builder: (BuildContext context) {
               return Padding(
-                padding: const EdgeInsets.all(22),
+                
+                padding: const EdgeInsets.all(28),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    //  مربع للكتابة بداخلة
                     TextField(
+                      //  ربط البينات المكتوبة بمتغير
                       controller: mycontrollerhhh,
                       decoration: InputDecoration(hintText: "ADD new quote"),
                       maxLength: 20,
@@ -96,7 +97,9 @@ class _QuotesState extends State<Quotes> {
                     SizedBox(
                       height: 20,
                     ),
+                    //  مربع للكتابة بداخلة
                     TextField(
+                      //  ربط البينات المكتوبة بمتغير
                       controller: mycontrollerhhh2,
                       decoration: InputDecoration(hintText: "ADD author"),
                       maxLength: 20,
@@ -104,28 +107,36 @@ class _QuotesState extends State<Quotes> {
                     SizedBox(
                       height: 20,
                     ),
+                    //  لعمل كلمة للضغط عليها
                     TextButton(
                         onPressed: () {
+                          //  امر قفل للصفحة الحالية
                           Navigator.pop(context);
+                          //  استدعاء فنكشون الاضافة
                           add();
-                          
                         },
                         child: Text("ADD")),
                   ],
                 ),
               );
             },
-            isScrollControlled: false,
+            // isScrollControlled: true,
+            
           );
         },
         backgroundColor: Colors.blue,
         child: Icon(Icons.add),
       ),
-      body: SingleChildScrollView(
+
+
+
+      body: 
+      //  لعمل اسكرول علي حسب الكلوم او الرو
+      SingleChildScrollView(
         child: Column(
           children: [
-            //  هذا الكود يكرر الكلاس بعدد عناصر الليست
-            ...AllQuotes.map((item) => CardWedget(
+    //  هذا الكود يصنع تكرار للليست والودجت علي حسب عدد الايتيم
+            ...allQuotes.map((item) => CardWedget(
                   // تعريف محتةي الكلاس المستخدم
                   itmecard: item,
                   deletecard: delete,
